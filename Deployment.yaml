@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: go-server-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: go-server
+  template:
+    metadata:
+      labels:
+        app: go-server
+    spec:
+      containers:
+      - name: go-server
+        image: go-app-docker:1.0.0 
+        imagePullPolicy: Never # Never pull images, if not found locally
+        ports:
+        - containerPort: 8080 # This line has just informative function
+
