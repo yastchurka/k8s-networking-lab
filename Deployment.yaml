@@ -1,7 +1,13 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: prj-go-server
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: go-server-deployment
+  namespace: prj-go-server
 spec:
   replicas: 1
   selector:
@@ -14,8 +20,21 @@ spec:
     spec:
       containers:
       - name: go-server
-        image: go-app-docker:1.0.0 
+        image: go-server:1.0  
         imagePullPolicy: Never # Never pull images, if not found locally
         ports:
         - containerPort: 8080 # This line has just informative function
-
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: go-service
+  namespace: prj-go-server
+spec:
+  selector:
+    app: go-server
+  ports:
+  - protocol: TCP
+    port: 8080
+    targetPort: 8080
+  type: ClusterIP
