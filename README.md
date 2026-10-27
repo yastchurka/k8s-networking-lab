@@ -90,3 +90,5 @@ curl kind.local
 ```
 
 ## Project structure
+<img width="1384" height="1946" alt="image" src="https://github.com/user-attachments/assets/266ffbbd-e089-4ef5-a3ba-8852673ffff4" />
+
