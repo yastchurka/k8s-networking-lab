@@ -38,3 +38,40 @@ spec:
     port: 8080
     targetPort: 8080
   type: ClusterIP
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-server-deployment
+  namespace: prj-go-server
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: nginx-server
+  template:
+    metadata:
+      labels:
+        app: nginx-server
+    spec:
+      containers:
+      - name: nginx-server
+        image: nginx:alpine
+        imagePullPolicy: Always 
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: nginx-service
+  namespace: prj-go-server
+spec:
+  selector:
+    app: nginx-server
+  ports:
+  - protocol: TCP
+    # port is free to choose
+    port: 8081
+    # targetPort must be identical with nginx port, 80 is default for nginx
+    targetPort: 80
+  type: ClusterIP
+
