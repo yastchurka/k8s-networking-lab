@@ -1,0 +1,19 @@
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: go-server-np
+  namespace: prj-go-server
+spec:
+  podSelector:
+    matchLabels:
+      app: go-server
+  policyTypes:
+  - Ingress
+  ingress:
+  - from:
+    - podSelector:
+        matchLabels:
+          app: nginx-server
+    ports:
+    - protocol: TCP
+      port: 8080
